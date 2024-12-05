@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: auto;      
+}
+
+
+.sidebar {
+    height: 100%;
+    overflow-y: auto;      
+    border-right: 1px solid #dee2e6;
+}
+.content {
+    padding: 20px;
+    overflow-y: auto;      
+    height: 100%;      
+}
+
+table .edit-btn {
+    color: #007bff;
+    font-size: 1.2rem;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+table .delete-btn {
+    color: red;
+    font-size: 1.2rem;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+main {
+    min-height: 100vh;
+}
