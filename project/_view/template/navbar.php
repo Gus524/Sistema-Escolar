@@ -7,10 +7,10 @@
     <section class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="?option=listaEscuelas">Escuelas</a>
+          <a class="nav-link" href="Escuelas">Escuelas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="?option=listaAlumnos">Alumnos</a>
+          <a class="nav-link" href="Alumnos">Alumnos</a>
         </li>
       </ul>
     </section>

@@ -6,6 +6,7 @@ class AlumnoCtrl
 {
     private $view = '_view/listaAlumno';
     public $title = 'Alumnos';
+    public $script = 'js/alumno.js';
     private $data;
     public function __construct()
     {

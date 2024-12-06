@@ -6,10 +6,11 @@
   </div>
 </footer>
   <!-- Bootstrap JS -->
-  <script src="utils/jquery_3.7.1/jquery-3.7.1.slim.min.js"></script>
-  <script src="utils/bootrsap_5.3.3/bootstrap.bundle.min.js"></script>
-  <script src="utils/datatables_2.1.8/datatables.js"></script>
-  <script src="utils/sweetalert2_11.14.5/sweetalert2.min.js"></script>
+  <script src="../utils/jquery_3.7.1/jquery-3.7.1.slim.min.js"></script>
+  <script src="../utils/bootrsap_5.3.3/bootstrap.bundle.min.js"></script>
+  <script src="../utils/datatables_2.1.8/datatables.js"></script>
+  <script src="../utils/sweetalert2_11.14.5/sweetalert2.min.js"></script>
+  <script src="../<?= $script ?? 'js/script.js' ?>"></script>
   <!--
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -1,6 +1,6 @@
 <h2>Tabla de escuelas</h2>
 <section class="table-responsive" style="padding: 10px">
-  <table id="tbProductos" class="table table-md table-striped table-hover">
+  <table id="tbEscuelas" class="table table-md table-striped table-hover">
     <thead>
       <tr>
         <th>Clave</th>
