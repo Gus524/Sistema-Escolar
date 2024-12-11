@@ -23,7 +23,7 @@ class Connection {
             $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db".';charset=utf8', $this->usr, $this->pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
-            error_log("Error de conexión: " . $e->getMessage());
+            throw new Exception($e->getMessage());            
         }
     }
     public static function getInstance($usr = null, $pass = null) {
@@ -32,7 +32,7 @@ class Connection {
         }
         return self::$instance;
     }
-    public function getConn() {
+    public function getConn(): PDO {
         return $this->conn;
     }
 }

@@ -4,17 +4,11 @@ formulario.addEventListener("submit", formulario_submit);
 
 function formulario_submit(e) {
     e.preventDefault();
-    //alert("submit anulado, haz lo que quieras :)");
-    
-    //preparar los datos del formulario
-    
-    //llamada a sweetalert
     let datos = new FormData(formulario);
-    llamadaASweetAlert(datos, "/functions/prueba.php");
+    llamadaASweetAlert(datos, "../_view/functions/prueba.php");
 }
 
 function llamadaASweetAlert(datos, actionUrl) {
-    console.log(datos);
     Swal.fire({
       title: "Seguro que deseas guardar los cambios?",
       text: "No podrás revertir esto",
@@ -28,23 +22,21 @@ function llamadaASweetAlert(datos, actionUrl) {
         try {
           const response = await fetch(actionUrl, {
             method: "POST",
-            body: datos
+            body: datos,
           });
-
           if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
+            throw new Error(response.statusText);
           }
-
-          const data = await response.json();
-
-          if (data.resultado !== 1) {
-            Swal.showValidationMessage("Hubo un problema al insertar los datos");
+          console.log(response);
+          const data = await response.text();
+          console.log(data);
+          if (!data) {
+            throw new Error(data);
           }
-
           return data;
         } catch (error) {
-          Swal.showValidationMessage(`Error en la solicitud: ${error.message}`);
-        }
+          Swal.showValidationMessage(`Request failed: ${error}`);
+        }  
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
@@ -52,7 +44,7 @@ function llamadaASweetAlert(datos, actionUrl) {
         Swal.fire({
           icon: "success",
           title: "Datos enviados correctamente",
-          text: "¡La inserción fue exitosa!"
+          text: "Si purula",
         });
       }
     });

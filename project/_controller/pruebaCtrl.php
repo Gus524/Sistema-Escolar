@@ -1,6 +1,4 @@
-<?php
-require_once "_model/mainModel.php";
-
+<?php   
 class nuevoRegistro {
     public $title = "Prueba";
     private $view = "_view/prueba.html";

@@ -1,0 +1,79 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left{
+    width: 50%;
+    background-color: #5A1236;
+    color: #ffff;
+    display: flex;
+    flex-direction: column; /*coloca el elemento uno debajo del otro */
+    align-items: center; /*centra los elementos horizontalmente*/
+    justify-content: center; /*centra los elementos verticalmente*/
+}
+
+.left img{
+    max-width: 90%;
+    max-height: 40vh;
+    margin-bottom: 5rem;
+}
+
+.right{
+    box-sizing: border-box;
+    width: 50%;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column; /*coloca el elemento uno debajo del otro */
+    justify-content: center; /*centra los elementos verticalmente*/
+}
+.right input{
+    box-sizing: border-box;
+    max-width: 80%;
+    margin-left: 2rem;
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid #5A1236;
+    margin-bottom: 2rem;
+    margin-top: 1rem; 
+}
+.right label, h2{
+    margin-left: 2rem;
+}
+.right h2{
+    margin-bottom: 8rem;
+}
+.btn-aceptar{
+    margin-top: 1rem;
+    max-width: 80%;
+    margin-left: 0.5rem;
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid #5A1236;
+    background-color: white;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease-in-out; 
+}
+
+.btn-aceptar:hover{
+    background-color: #5A1236;
+    color: white;
+    border: 1px solid #5A1236;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    margin-top: -2em;
+    font-size: .5em;
+}
