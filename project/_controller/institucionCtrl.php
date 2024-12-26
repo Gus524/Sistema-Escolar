@@ -1,5 +1,5 @@
 <?php 
-require_once '_model/institucionModel.php';
+require_once 'institucionModel.php';
 class InstitucionCtrl {
     public function __construct(
         private $view = '_view/listaEscuela', 

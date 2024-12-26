@@ -48,7 +48,7 @@
                 <a class="dropdown-item" href="#">Agenda escolar</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Mapa curricular</a>
+                <a class="dropdown-item" href="Mapa">Mapa curricular</a>
               </li>
               <li>
                 <a class="dropdown-item" href="#">Equivalencias</a><

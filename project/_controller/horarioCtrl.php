@@ -1,5 +1,5 @@
 <?php
-include_once "_model/grupo_horarioModel.php";
+include_once "grupo_horarioModel.php";
 class HorarioCtrl {
     public function __construct(
         public string $title = "Horario",
@@ -16,7 +16,6 @@ class HorarioCtrl {
 
     public function get_horario(){
         $model = new Grupo_Horario();
-        $model->get_connection($_SESSION['user'], $_SESSION['pass']);
         switch ($_SESSION['tipo']) {
             case 'alumno':
                 $this->view = "_view/horarioAlumno";

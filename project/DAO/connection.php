@@ -10,7 +10,7 @@ class Connection {
     private $host;
     private $db;
     private $conn;
-    private static $instance;
+    private static ?Connection $instance = null;
     private function __construct($usr, $pass) {
         $this->usr = $usr;
         $this->pass = $pass;

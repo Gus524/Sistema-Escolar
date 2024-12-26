@@ -1,4 +1,5 @@
 <?php
+require_once 'DAO/connection.php';
 class Utilidades
 {
     public static function get_tipo_usuario(string $user): string
@@ -15,6 +16,8 @@ class Utilidades
         if (!isset($_SESSION['user']) && !isset($_SESSION['pass'])) {
             include 'login.php';
             exit();
+        } else {
+            Connection::getInstance($_SESSION['user'], $_SESSION['pass'])->getConn();
         }
     }
 

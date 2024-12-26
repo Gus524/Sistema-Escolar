@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../config/global.php';
-require_once ROOT_PATH.'DAO/connection.php';
+require_once '/config/global.php';
+require_once 'DAO/connection.php';
 class Institucion {
     private $conn;
     public function __construct(

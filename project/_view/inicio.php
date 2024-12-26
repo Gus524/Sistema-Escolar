@@ -1,3 +1,7 @@
+<?php
+// Se obtiene el id de la institucion para el manejo del sistema
+$_SESSION['id_inst'] = $this->data['id_inst'];
+?>
 <section class="d-flex flex-column mb-3 text-center">
     <label class="display-5"><?= $this->data['nom_inst'] ?></label>
     <hr>

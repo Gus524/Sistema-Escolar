@@ -1,6 +1,6 @@
 <h2 class="h2">Comprobante horario</h2>
 <hr>
-<section class="table-responsive text-center">
+<section class="table-responsive text-center rounded-4">
     <table id="tbHorario" class="table table-md table-striped table-hover">
         <thead class="table-dark">
             <th>Grupo</th>

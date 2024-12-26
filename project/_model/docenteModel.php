@@ -1,10 +1,12 @@
 <?php
-include_once '_model/usuarioModel.php';
+include_once 'usuarioModel.php';
 class Docente extends Usuario {
     public function __construct(
         private string $rfc = '',
     )
-    {}
+    {
+        parent::__construct();
+    }
     public function inicio(){
         try {
             $sql = "CALL InicioDocente(?)";

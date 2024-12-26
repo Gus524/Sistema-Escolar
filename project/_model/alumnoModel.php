@@ -1,9 +1,11 @@
 <?php
-require_once '_model/usuarioModel.php';
+require_once 'usuarioModel.php';
 class Alumno extends Usuario {
     public function __construct(
         private $no_boleta = "",
-    ) {}
+    ) {
+        parent::__construct();
+    }
     public function consultar_inscripcion() {
         
     }

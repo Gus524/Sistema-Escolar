@@ -1,5 +1,4 @@
 <?php
-require_once 'DAO/connection.php';
 class Grupo {
     public function __construct(
         public int $semestre,
@@ -21,6 +20,9 @@ class Grupo_Horario {
     public Grupo $grupo;
     public array $horarios;
     private PDO $conn;
+    public function __construct() {
+        $this->get_connection();
+    }
     public function consultar_horario_alumno($boleta, $periodo = 2) {
         try {
             $sql =  'CALL GetAlumnoHorario(?, ?)';
@@ -50,8 +52,8 @@ class Grupo_Horario {
             return false;
         }
     }
-    public function get_connection($user = null, $pass = null) {
-        $db = Connection::getInstance($user, $pass);
+    public function get_connection() {
+        $db = Connection::getInstance();
         $this->conn = $db->getConn();
     }
 }

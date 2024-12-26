@@ -1,6 +1,6 @@
 <?php
-include_once '_model/alumnoModel.php';
-include_once '_model/docenteModel.php';
+include_once 'alumnoModel.php';
+include_once 'docenteModel.php';
 class InicioCtrl {
     public function __construct(
         public string $title = "Inicio",
@@ -20,15 +20,12 @@ class InicioCtrl {
     // Se cargan los datos de acuerdo a las sesiones del usuario
     public function get_data(){ 
         $user = $_SESSION['user'];
-        $pass = $_SESSION['pass'];
         switch ($_SESSION['tipo']) {
             case 'alumno':
                 $model = new Alumno($user);
-                $model->get_connection($user, $pass);
                 return $model->inicio();
             case 'docente':
                 $model = new Docente($user);
-                $model->get_connection($user, $pass);
                 return $model->inicio();
             case 'gestion':
                 break;
