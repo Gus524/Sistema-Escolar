@@ -1,4 +1,5 @@
 <h2>Mapa curricular</h2>
+<br>
 <form id="formMapa" class="row mb-3">
     <label class="col-6 form-label" for="carrera">
         Carrera:
@@ -19,6 +20,7 @@
     </label>
 </form>
 <hr>
+<br>
 <section id="mapaCurricular" class="d-flex justify-content-center text-center rounded-4">
 
 </section>

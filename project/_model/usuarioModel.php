@@ -1,6 +1,5 @@
 <?php
 class Usuario {
-    protected $conn;
     public function __construct(
         private string $nombre = "",
         private string $ap = "",
@@ -16,15 +15,8 @@ class Usuario {
         private string $delegacion = "",
         private string $cp = "",
     ) 
-    {
-        $this->get_connection();
-    }
-    // Obtiene la conexión a la base de datos
-    public function get_connection()
-    {
-        $db = Connection::getInstance();
-        $this->conn = $db->getConn();
-    }
+    { }
+
     public function iniciar_sesion(){
 
     }

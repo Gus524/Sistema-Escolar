@@ -1,10 +1,10 @@
 <?php
 require_once 'DAO/connection.php';
+session_start();
 if(isset($_SESSION['user']) && isset($_SESSION['pass'])) {
-    header('Location: index.php');
+    header('Location: Inicio');
     exit();
 }
-session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['user'];
     $pass = $_POST['pass'];
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($conn != null) {    
         $_SESSION['user'] = $user;
         $_SESSION['pass'] = $pass; 
-        header('Location: index.php');
+        header('Location: Inicio');
         exit();
     }
 } 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <main>
         <section class="left">
-            <img src="src/img/logo_SAES.png" alt="SAES">
+            <img src="src/img/logo_p.png" alt="Logo">
         </section>
         <form id="formulario" method="post" action="login.php" class="right">
             <h2>Inicio de sesión</h2>

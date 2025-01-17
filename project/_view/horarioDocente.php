@@ -1,5 +1,6 @@
 <h2 class="h2">Horario</h2>
 <hr>
+<br>
 <section class="table-responsive text-center">
     <table id="tbHorario" class="table table-md table-striped table-hover">
         <thead class="table-dark">

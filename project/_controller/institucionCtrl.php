@@ -4,7 +4,7 @@ class InstitucionCtrl {
     public function __construct(
         private $view = '_view/listaEscuela', 
         public $title = 'Instituciones', 
-        public $script = 'js/escuela.js', 
+        public $script = 'escuela.js', 
         private $data = null)
     {
         $model = new Institucion(null, null, null);

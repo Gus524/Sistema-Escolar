@@ -13,8 +13,8 @@ main {
 
 .left{
     width: 50%;
-    background-color: #5A1236;
-    color: #ffff;
+    background-color: #212529;
+    color: #f8f9fa;
     display: flex;
     flex-direction: column; /*coloca el elemento uno debajo del otro */
     align-items: center; /*centra los elementos horizontalmente*/
@@ -22,15 +22,15 @@ main {
 }
 
 .left img{
-    max-width: 90%;
-    max-height: 40vh;
+    max-width: 100%;
+    max-height: 80vh;
     margin-bottom: 5rem;
 }
 
 .right{
     box-sizing: border-box;
     width: 50%;
-    background-color: #ffff;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column; /*coloca el elemento uno debajo del otro */
     justify-content: center; /*centra los elementos verticalmente*/
@@ -41,7 +41,7 @@ main {
     margin-left: 2rem;
     border-radius: 10px;
     padding: 0.8rem;
-    border: 1px solid #5A1236;
+    border: 1px solid #212529;
     margin-bottom: 2rem;
     margin-top: 1rem; 
 }
@@ -57,7 +57,7 @@ main {
     margin-left: 0.5rem;
     border-radius: 10px;
     padding: 0.8rem;
-    border: 1px solid #5A1236;
+    border: 1px solid #212529;
     background-color: white;
     font-weight: bold;
     margin-left: auto;
@@ -66,9 +66,9 @@ main {
 }
 
 .btn-aceptar:hover{
-    background-color: #5A1236;
+    background-color: #212529;
     color: white;
-    border: 1px solid #5A1236;
+    border: 1px solid #212529;
     cursor: pointer;
 }
 

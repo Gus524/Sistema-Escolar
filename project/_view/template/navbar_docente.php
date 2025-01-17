@@ -1,6 +1,8 @@
-<header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-3 px-3" data-bs-theme="dark">
+<header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-2 px-3" data-bs-theme="dark">
   <nav class="container-fluid px-3">
-    <a class="navbar-brand" href="Inicio">Inicio</a>
+    <a class="navbar-brand" href="Inicio">
+      <img src="<?= SITE_URL ?>/src/img/logo_p.png" width="50" height="45" alt="logo">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,7 +18,7 @@
                 <a class="dropdown-item" href="Horario">Horario actual</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Grupos</a>
+                <a class="dropdown-item" href="Grupos">Grupos</a>
               </li>
             </ul>
           </li>
@@ -26,10 +28,10 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="#">Ocupabilidad</a>
+                <a class="dropdown-item" href="Ocupabilidad">Ocupabilidad</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Horarios de clase</a>
+                <a class="dropdown-item" href="Horarios">Horarios de clase</a>
               </li>
             </ul>
           </li>

@@ -9,7 +9,7 @@ class Carrera {
     public static function get_carr_inst($institucion): ?array {
         try {
             $conn = Connection::getInstance()->getConn();
-            $sql = 'CALL GetCarrInst(?)';
+            $sql = 'SELECT * FROM GetCarrerasInst WHERE id_inst = ?';
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(1, $institucion, PDO::PARAM_STR);
             $stmt->execute();

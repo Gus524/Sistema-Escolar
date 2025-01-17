@@ -6,7 +6,7 @@ class MapaCtrl {
     public function __construct(
         public string $title = "Mapa",
         public string $view = "_view/mapaCurricular",
-        public string $script = "js/mapa.js",
+        public string $script = "mapa.js",
         private $carreras = null,
         private $planes = null,
     )

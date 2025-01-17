@@ -6,4 +6,4 @@ include_once 'connection.php';
 $conn = Connection::getInstance($_SESSION['user'], $_SESSION['pass'])->getConn();
 $carrera = $_POST['carrera'];
 $planes = AsyncPlanCtrl::get_plan_carrera($carrera);
-echo json_encode($planes, $mapa);
+echo json_encode($planes);

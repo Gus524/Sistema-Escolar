@@ -1,6 +1,4 @@
 <?php
-include_once 'alumnoModel.php';
-include_once 'docenteModel.php';
 class InicioCtrl {
     public function __construct(
         public string $title = "Inicio",
@@ -15,20 +13,24 @@ class InicioCtrl {
     public function renderContent(){
         require_once $this->view . '.php';
     }
-
+    // Matriz para controlar los archivos y clases dependiendo del tipo de usuario
+    private static $tipoUsuario = [
+        'alumno' => ['model' => 'alumnoModel.php', 'class' => 'Alumno'],
+        'docente' => ['model' => 'docenteModel.php', 'class' => 'Docente'],
+        'gestion' => ['model' => 'gestionModel.php', 'class' => 'Gestion_Escolar']
+    ];
     // Compara el tipo de usuario y renderiza la vista correspondiente
     // Se cargan los datos de acuerdo a las sesiones del usuario
     public function get_data(){ 
+        // Obtiene el usuario con la variable de sesion
         $user = $_SESSION['user'];
-        switch ($_SESSION['tipo']) {
-            case 'alumno':
-                $model = new Alumno($user);
-                return $model->inicio();
-            case 'docente':
-                $model = new Docente($user);
-                return $model->inicio();
-            case 'gestion':
-                break;
-        }
+        // Obtiene la informacion de la matriz con el tipo de usuario
+        $model_info = self::$tipoUsuario[$_SESSION['tipo']];
+        // Incluye el archivo de php
+        include $model_info['model'];
+        // Crea el modelo a partir de la informacion de la matriz
+        $model = new $model_info['class']($user);
+        // Llama la funcion de inicio (es el mismo nombre para los 3 modelos)
+        return $model->inicio();
     }
 }
