@@ -1,9 +1,4 @@
 <?php
-define('CONFIG_DIR', dirname(__DIR__).'/config/.env');
-$lines = file(CONFIG_DIR);
-foreach ($lines as $line) {
-    putenv(trim($line));
-}
 class Connection {
     private $usr;
     private $pass;
@@ -19,8 +14,14 @@ class Connection {
     private function connect(){
         $this->host = getenv('DB_HOST');
         $this->db = getenv('DB_NAME');
+
+        $options = [
+            PDO::MYSQL_ATTR_SSL_CA => __DIR__ . '/certs/DigiCertGlobalRootG2.crt.pem', // cambia la ruta si necesario
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ];
+
         try {
-            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db".';charset=utf8', $this->usr, $this->pass);
+            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db".';charset=utf8', $this->usr, $this->pass, $options);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             throw new Exception($e->getMessage());            
