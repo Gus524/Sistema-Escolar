@@ -8,6 +8,6 @@ set_include_path(
     PATH_SEPARATOR . realpath(__DIR__ . '/..') . '/DAO'
 );
 
-define("SITE_URL", "http://192.168.100.21/Project-Web/");
-define("ROOT_PATH", "/home/www/Project-Web/");
+define("SITE_URL", "https://schoolshield.azurewebsites.net");
+define("ROOT_PATH", realpath(__DIR__ . '/..') . '/');
 define("DEFAULT_URL", "Inicio");
