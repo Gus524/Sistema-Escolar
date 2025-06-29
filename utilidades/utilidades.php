@@ -1,5 +1,6 @@
 <?php
 require_once 'DAO/connection.php';
+require_once ROOT_PATH . 'DAO/AuditService.php';
 class Utilidades
 {
     // Matriz para controlar la navegabilidad dependiendo el tipo de usuario
