@@ -1,6 +1,6 @@
 USE db_escolar;
 
-CREATE VIEW GetInicioGestion AS
+CREATE OR REPLACE VIEW GetInicioGestion AS
 	SELECT 	g.usuario,
 			i.id_inst,
 			i.nom_inst
@@ -11,7 +11,7 @@ CREATE VIEW GetInicioGestion AS
 	ON
 		i.id_inst = g.id_inst;
 
-CREATE VIEW GetInicioAlumno AS
+CREATE OR REPLACE VIEW GetInicioAlumno AS
 	SELECT CONCAT(a.nom_al, " ", a.ap_al, ' ', a.am_al) as nombre,
 		   a.no_boleta,
 		   i.id_inst,
@@ -37,7 +37,7 @@ CREATE VIEW GetInicioAlumno AS
 	ON
 		i.id_inst = c.id_inst;
 
-CREATE VIEW GetInicioDocente AS
+CREATE OR REPLACE VIEW GetInicioDocente AS
 	SELECT CONCAT(d.nom_doc, ' ', d.ap_doc, ' ', d.am_doc) AS nombre,
 	   a.nom_academia,
        i.nom_inst,
@@ -58,7 +58,7 @@ CREATE VIEW GetInicioDocente AS
 	ON
 		e.id_inst = i.id_inst;
         
-CREATE VIEW GetAlumnoHorario AS
+CREATE OR REPLACE VIEW GetAlumnoHorario AS
 	SELECT i.no_boleta, 
 		i.id_periodo,
 		CONCAT(g.semestre, g.abr_carr, g.turno, g.semestre, g.no_grupo) AS grupo,
@@ -100,7 +100,7 @@ CREATE VIEW GetAlumnoHorario AS
 	ON
 		(h.no_boleta, h.id_plan) = (i.no_boleta, mc.id_plan);
         
-CREATE VIEW GetDocenteHorario AS
+CREATE OR REPLACE VIEW GetDocenteHorario AS
 	SELECT 
 		dh.id_periodo,
 		CONCAT(d.nom_doc, ' ', d.ap_doc, ' ', d.am_doc) AS nombre,
@@ -140,7 +140,7 @@ CREATE VIEW GetDocenteHorario AS
 	WHERE 
 		p.activo = 1;
         
-CREATE VIEW GetMapaCurricular AS
+CREATE OR REPLACE VIEW GetMapaCurricular AS
 	SELECT CONCAT(mc.abr_carr, mc.semestre, mc.no_materia) AS clave, 
 	   m.nom_materia, 
        m.tipo_materia,
@@ -161,7 +161,7 @@ CREATE VIEW GetMapaCurricular AS
 	ON
 		p.id_plan = mc.id_plan;
         
-CREATE VIEW GetCarrerasInst AS
+CREATE OR REPLACE VIEW GetCarrerasInst AS
 	SELECT 
 	   i.id_inst,
 	   c.abr_carr,
@@ -174,7 +174,7 @@ CREATE VIEW GetCarrerasInst AS
 	ON
 		i.id_inst = c.id_inst;
 
-CREATE VIEW GetForMapa AS
+CREATE OR REPLACE VIEW GetForMapa AS
 	SELECT id_plan,
 		   desc_plan AS plan,
            c.abr_carr
@@ -185,7 +185,7 @@ CREATE VIEW GetForMapa AS
 	ON
 		c.abr_carr = p.abr_carr;
 
-CREATE VIEW GetAlumnosGrupo AS
+CREATE OR REPLACE VIEW GetAlumnosGrupo AS
 	SELECT 	d.rfc,
 			a.no_boleta,
 			a.email_p_alumno,
@@ -218,7 +218,7 @@ CREATE VIEW GetAlumnosGrupo AS
 	WHERE 
 		p.activo = 1;
         
-CREATE VIEW GetInformacionGrupo AS
+CREATE OR REPLACE VIEW GetInformacionGrupo AS
 	SELECT gh.semestre, 
 		   gh.turno,
 		   gh.no_grupo,
@@ -244,7 +244,7 @@ CREATE VIEW GetInformacionGrupo AS
 	ON
 		p.id_periodo = gh.id_periodo;
 	
-CREATE VIEW GetHorarios AS
+CREATE OR REPLACE VIEW GetHorarios AS
 	SELECT  CONCAT(d.nom_doc, ' ', d.ap_doc, ' ', d.am_doc) AS nombre,
             m.nom_materia AS materia,
             gh.semestre,
@@ -288,7 +288,7 @@ CREATE VIEW GetHorarios AS
 	ON
 		p.id_periodo = gh.id_periodo;
 	
-CREATE VIEW GetGruposPlan AS
+CREATE OR REPLACE VIEW GetGruposPlan AS
 	SELECT  CONCAT(semestre, abr_carr, turno, semestre, no_grupo) AS secuencia,
 			semestre,
 			p.id_periodo,
@@ -302,7 +302,7 @@ CREATE VIEW GetGruposPlan AS
 	ON 
 		g.id_periodo = p.id_periodo;
      
-CREATE VIEW GetAlumnoCalificaciones AS
+CREATE OR REPLACE VIEW GetAlumnoCalificaciones AS
 	SELECT i.no_boleta, 
 		i.id_plan,
 		i.id_periodo,
@@ -340,7 +340,7 @@ CREATE VIEW GetAlumnoCalificaciones AS
 	WHERE
 		p.activo = 1;
         
-CREATE VIEW GetEstadoGeneralAlumno AS
+CREATE OR REPLACE VIEW GetEstadoGeneralAlumno AS
 	SELECT 	e.no_boleta,
 			e.id_plan,
 			e.estado,
@@ -366,7 +366,7 @@ CREATE VIEW GetEstadoGeneralAlumno AS
 	ON
 		a.id_academia = m.id_academia;
 	
-CREATE VIEW GetHistorialAlumno AS
+CREATE OR REPLACE VIEW GetHistorialAlumno AS
 	SELECT  a.no_boleta,
 			CONCAT(nom_al, ' ', ap_al, ' ', am_al) AS nombre,
             desc_carr,
@@ -389,7 +389,7 @@ CREATE VIEW GetHistorialAlumno AS
 	ON
 		c.abr_carr = p.abr_carr;
 
-CREATE VIEW GetHistorialDetalle AS
+CREATE OR REPLACE VIEW GetHistorialDetalle AS
 	SELECT	CONCAT(mc.abr_carr, mc.semestre, mc.no_materia) AS clave,
 			m.nom_materia,
             dh.fecha_eval,
@@ -415,7 +415,7 @@ CREATE VIEW GetHistorialDetalle AS
 	ON
 		p.id_periodo = dh.id_periodo;
         
-CREATE VIEW GetGruposDocente AS
+CREATE OR REPLACE VIEW GetGruposDocente AS
 	SELECT
 			m.nom_materia,
             dh.id_periodo,
@@ -482,12 +482,12 @@ CREATE OR REPLACE VIEW GetDatosAlumno AS
 	ON
 		i.id_inst = c.id_inst;
         
-CREATE VIEW GetDatosDocente AS
+CREATE OR REPLACE VIEW GetDatosDocente AS
 	SELECT 	rfc,
 			CONCAT(nom_doc, ' ', ap_doc, ' ', am_doc) AS nombre,
             email_p_doc,
             email_i_doc,
-            tel_doc,
+            CONCAT(REPEAT('*', LENGTH(tel_doc) - 6), RIGHT(tel_doc, 4)) AS tel_doc,
             calle,
             no_ext,
             no_int,

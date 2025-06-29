@@ -5,7 +5,7 @@ function iniciar() {
     const tabla = $('tbAlumnos');
 
     tabla.addEventListener('click', (event) => {
-        const btn = event.target.closest('.edit-btn, .delete-btn'); // Encuentra el botón más cercano
+        const btn = event.target.closest('.edit-btn, .delete-btn');
         if (btn) {
             if (btn.classList.contains('edit-btn')) {
                 editAlert(event);
@@ -38,7 +38,6 @@ function editAlert(event) {
 }
 
 function deleteAlert(event) {
-    // Obtener información del producto a partir de event.target (si es necesario)
     let name = $('nombre_' + event.target.id.split("_")[1]).textContent;
     Swal.fire({
         icon: 'warning',
@@ -52,10 +51,19 @@ function deleteAlert(event) {
 }
 
 const formAlumno = (boleta, nombre) => {
+    const scapedBoleta = scapeHTML(boleta);
+    const scapedNombre = scapeHTML(nombre);
+
     return `
-        <input id="boleta" class="swal2-input" value="${boleta}" required>
-        <textarea id="nombre" class="swal2-textarea" required>${nombre}</textarea>
+        <input id="boleta" class="swal2-input" value="${scapedBoleta}" required>
+        <textarea id="nombre" class="swal2-textarea" required>${scapedNombre}</textarea>
     `;
+}
+
+function scapeHTML(str) {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
 }
 
 const $ = (id) => document.getElementById(id);

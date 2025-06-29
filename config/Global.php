@@ -10,3 +10,5 @@ set_include_path(
 
 define("SITE_URL", "https://schoolshield.azurewebsites.net/");
 define("DEFAULT_URL", "Inicio");
+define('MAX_LOGIN_ATTEMPTS', 5);
+define('LOCKOUT_TIME', 60);

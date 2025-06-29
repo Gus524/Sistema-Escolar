@@ -68,7 +68,7 @@ class Utilidades
     private static function close_loggin()
     {
         session_destroy();
-        header('Location: ' . SITE_URL . '/login');
+        header('Location: ' . SITE_URL . 'login');
         exit();
     }
     // Verificar los permisos del usuario para acceder a una pagina
@@ -84,6 +84,48 @@ class Utilidades
         }
         return self::$permisos[$tipo][$page];
     }
+
+    private static function handleLogin() {
+        if(isset($_SESSION['lockout_time'])) {
+            $lapsed_time = time() - $_SESSION['lockout_time'];
+            if ($lapsed_time < LOCKOUT_TIME) {
+                $remainging_time = LOCKOUT_TIME - $lapsed_time;
+                $_SESSION['error_message'] = "Demasiados intentos fallidos. Por favor, inténtelo de nuevo en $remainging_time segundos.";
+                header('Location: login');
+                exit();
+            } else {
+                unset($_SESSION['login_attempts']);
+                unset($_SESSION['lockout_time']);
+            }
+        }
+
+        require_once ROOT_PATH . 'DAO/AuthService.php';
+        $authService = new AuthService();
+        $userData = $authService->attemptLogin($_POST['user'], $_POST['pass']);
+        if($userData) {
+            unset($_SESSION['login_attempts']);
+            unset($_SESSION['lockout_time']);
+            session_regenerate_id(true);
+            $_SESSION['user'] = $_POST['user'];
+            $_SESSION['tipo'] = $userData['tipo'];
+            self::save_log_audit('Inicio de sesión exitoso', $_POST['user'], 'Usuario ha iniciado sesión correctamente.');
+            header('Location: ' . DEFAULT_URL);
+            exit();
+        } else {
+            $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
+            if ($_SESSION['login_attempts'] >= MAX_LOGIN_ATTEMPTS) {
+                $_SESSION['lockout_time'] = time();
+                $_SESSION['error_message'] = "Demasiados intentos fallidos. Por favor, inténtelo de nuevo más tarde.";
+                self::save_log_audit('Bloqueo de cuenta', $_POST['user'], 'Demasiados intentos fallidos de inicio de sesión.');
+            } else {
+                $attemps_left = MAX_LOGIN_ATTEMPTS - $_SESSION['login_attempts'];
+                $_SESSION['error_message'] = "Usuario o contraseña incorrectos. Intentos restantes: $attemps_left.";
+                self::save_log_audit('Intento de inicio de sesión fallido', $_POST['user'], 'Usuario o contraseña incorrectos.');
+            }
+            header('Location: login');
+            exit();
+        }
+    }
     // Funcion para asignar o mantener el tipo de usuario
     private static function set_tipo_user($tipo)
     {
@@ -97,24 +139,9 @@ class Utilidades
         $querystring = $_GET['querystring'] ?? '';
         
         if ($querystring === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Si la petición es un POST a /login, la procesamos aquí.
-            require_once ROOT_PATH . 'DAO/AuthService.php';
-
-            $authService = new AuthService();
-            $userData = $authService->attemptLogin($_POST['user'], $_POST['pass']);
-
-            if ($userData) {
-                session_regenerate_id(true);
-                $_SESSION['user'] = $_POST['user'];
-                $_SESSION['tipo'] = $userData['tipo'];
-                header('Location: ' . DEFAULT_URL);
-                exit();
-            } else {
-                $_SESSION['error_message'] = "Usuario o contraseña incorrectos.";
-                header('Location: login');
-                exit();
-            }
+        self::handleLogin();
         }
+
         self::is_user_logged();
         $tipo = self::get_tipo_usuario($_SESSION['user']);
         self::set_tipo_user($tipo);
@@ -135,9 +162,16 @@ class Utilidades
         }
         // Si el usuario no tiene permiso para acceder a la pagina manda error
         if(!self::has_permissions($tipo, $page)){
+            $details = "Intento de acceso a la pagina " . htmlspecialchars($page) . " por el usuario {$_SESSION['user']} con tipo $tipo";
+            self::save_log_audit('Acceso denegado', $_SESSION['user'], $details);
             self::show_error(403, "Acceso denegado");
         }
         return self::return_controller($page, $id, $tipo);
+    }
+
+    private static function save_log_audit($accion, $user_id, $details): void {
+        $auditService = new AuditService();
+        $auditService->logAction($accion, $user_id, $details);
     }
     private static function return_controller($page, $id, $tipo): object{
         // Manejo para pagina de detalle grupo

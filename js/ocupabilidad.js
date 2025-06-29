@@ -20,7 +20,6 @@ function initialize() {
 function ajaxPlanes() {
     // Obtiene el contenido del formulario
     let data = new FormData(formHorario);
-    console.log(data);
     //Manda a llamar la funcion de php a traves de un Fetch
     fetch('ajax/asyncPlanes.php', {
         method: 'POST',
@@ -33,8 +32,6 @@ function ajaxPlanes() {
 }
 
 function loadPlans(planes) {
-    // Vacia el select
-    console.log(planes);
     selectPlan.innerHTML = '';
     // Llena los datos del select planes
     planes.planes.forEach(plan => {
@@ -98,8 +95,6 @@ function loadHorario(horarios) {
 }
 
 function sendData(detalles) {
-    console.log(detalles)
-    // Llama a la funcion que carga la tabla dinamicamente
     fetch('ajax/asyncOcupabilidadTable.php', {
         method: 'POST',
         body: JSON.stringify({ detalles: detalles })
@@ -119,7 +114,6 @@ function resetGrupos() {
 
 function loadElements(grupos) {
     resetGrupos();
-    console.log(grupos);
     // Verifica si existen grupos para los filtros 
     if (grupos.length > 0) {
         grupos.forEach(grupo => {
