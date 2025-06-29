@@ -14,7 +14,7 @@ class AuthService {
         switch ($tipo) {
             case 'alumno':
                 $table = 'Alumno';
-                $id_column = 'boleta';
+                $id_column = 'no_boleta';
                 break;
             case 'docente':
                 $table = 'Docente';
