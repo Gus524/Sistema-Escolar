@@ -60,7 +60,7 @@ class Utilidades
     private static function is_user_logged()
     {
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
-            header('Location: login.php');
+            require_once ROOT_PATH . 'login.php';
             exit();
         }
     }
@@ -68,7 +68,7 @@ class Utilidades
     private static function close_loggin()
     {
         session_destroy();
-        header('Location: login.php');
+        header('Location: ' . SITE_URL . '/login');
         exit();
     }
     // Verificar los permisos del usuario para acceder a una pagina
@@ -123,38 +123,39 @@ class Utilidades
         if($page == 'Grupos' && !empty($id)){
             $id_parts = explode('-', $id);
             if(count($id_parts) == 2){
-                include_once ROOT_PATH . 'detalleGrupoCtrl.php';
+                include_once ROOT_PATH . '_controller/detalleGrupoCtrl.php';
                 return new DetalleGrupoCtrl($id_parts[0], $id_parts[1]);
             } else {
                 self::show_error(400, "Informacion no valida");
             }
         }
         // Se obtiene la informacion del controlador
-        $controller = self::get_controller($tipo, $page);
-        // Comprueba si la pagina no existe
-        if($controller === null) {
-            self::show_error(404, "La pagina solicitada no existe");
+        $controller_info = self::$permisos[$tipo][$page];
+        $controller_file = $controller_info['file'];
+        $controller_name = $controller_info['controller'];
+        
+        // La ruta completa y segura al archivo del controlador.
+        $controller_path = ROOT_PATH . '_controller/' . $controller_file;
+
+        if (!file_exists($controller_path)) {
+            self::show_error(500, "Error Interno: El archivo del controlador no fue encontrado.");
         }
-        // Comprueba si se necesita ID para el tipo de usuario (Para paginas de gestion escolar)
-        if(isset($controller['requiere_id']) && $controller['requiere_id'] && empty($id)) {
-            self::show_error(400, "Informacion sin proporcionar");
+        
+        // Usamos require_once para que la aplicación falle si el controlador no existe.
+        require_once $controller_path;
+
+        // Lógica para instanciar el controlador (ya la tenías bien).
+        if (isset($controller_info['requiere_id']) && $controller_info['requiere_id'] && empty($id)) {
+            self::show_error(400, "Información sin proporcionar. Esta página requiere un identificador.");
         }
-        // Incluir el archivo del controlador
-        include $controller['file'];
-        // Obtener el nombre dle controlador
-        $controller_name = $controller['controller'];
-        //Generar el controlador
-        if(isset($controller['usar_sesion']) && $controller['usar_sesion']){
-            // Para paginas con usuarios que generan informacion a partir de su sesion
-            $ctrl = new $controller_name();
-        } else if (!empty($id)){
-            // Para paginas donde se debe cargar informacion con un id
-            $ctrl = new $controller_name();
+
+        if (isset($controller_info['usar_sesion']) && $controller_info['usar_sesion']) {
+            return new $controller_name();
+        } else if (!empty($id)) {
+            return new $controller_name($id); // Pasamos el ID al constructor si es necesario.
         } else {
-            // Para cualquier otra pagina
-            $ctrl = new $controller_name();
+            return new $controller_name();
         }
-        return $ctrl;
     }
     // Funcion para mostrar error con el codigo HTTP correspondiente
     private static function show_error($code, $message){

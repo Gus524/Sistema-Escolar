@@ -45,7 +45,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['tipo'])) {
         <section class="left">
             <img src="src/img/logo_p.png" alt="Logo">
         </section>
-        <form id="formulario" method="post" action="" class="right">
+        <form id="formulario" method="post" action="login" class="right">
             <h2>Inicio de sesión</h2>
             <label for="user">Usuario: </label>
             <input type="text" id="user" name="user" placeholder="Usuario" required>

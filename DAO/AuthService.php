@@ -8,7 +8,7 @@ class AuthService {
     public function __construct() {
         $this->pdo = Connection::getInstance()->getConn();
     }
-    public function attemptLogin(string $user, string $password) {
+    public function attemptLogin(string $user, string $password): mixed {
         $tipo = Utilidades::get_tipo_usuario($user);
 
         switch ($tipo) {
