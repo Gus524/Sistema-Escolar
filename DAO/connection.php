@@ -33,7 +33,6 @@ class Connection {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_PERSISTENT => false,
             PDO::MYSQL_ATTR_SSL_CA => $ssl_ca_path,
-            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
         ];
 
         try {
