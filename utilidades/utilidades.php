@@ -161,6 +161,10 @@ class Utilidades
         if($page == "Cerrar") {
             self::close_loggin();
         }
+        if(strtolower($page) == "login") {
+            header('Location: ' . SITE_URL . DEFAULT_URL);
+            exit();
+        }
         // Si el usuario no tiene permiso para acceder a la pagina manda error
         if(!self::has_permissions($tipo, $page)){
             $details = "Intento de acceso a la pagina " . htmlspecialchars($page) . " por el usuario {$_SESSION['user']} con tipo $tipo";
