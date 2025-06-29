@@ -1,12 +1,11 @@
 <?php
 require_once 'connection.php';
-require_once __DIR__ . '/../Utilidades.php'; // Ajusta la ruta si es necesario
+require_once ROOT_PATH . 'utilidades/utilidades.php'; // Ajusta la ruta si es necesario
 
 class AuthService {
     private PDO $pdo;
 
     public function __construct() {
-        // Obtenemos la conexión segura de la aplicación
         $this->pdo = Connection::getInstance()->getConn();
     }
     public function attemptLogin(string $user, string $password) {
