@@ -60,7 +60,7 @@ class Utilidades
     private static function is_user_logged()
     {
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
-            include_once ROOT_PATH . 'login.php';
+            include_once ROOT_PATH . 'login';
             exit();
         }
     }
