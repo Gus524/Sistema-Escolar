@@ -11,7 +11,7 @@ $plan = @$_POST['selectPlan'];
 $semestre = @$_POST['selectSemestre'];
 $turno = @$_POST['selectTurno'];
 $grupo = @$_POST['selectGrupo'];
-$conn = Connection::getInstance($_SESSION['user'], $_SESSION['pass'])->getConn();
+$conn = Connection::getInstance()->getConn();
 $horario = match(true) {
     isset($grupo) && $grupo != 'Todos' =>
         $horarios->get_horario_grupo($plan, $grupo),

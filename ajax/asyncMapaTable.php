@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 include_once dirname(__FILE__) . '/../config/Global.php';
 include_once 'asyncPlanCtrl.php';
 include_once 'connection.php';
-$conn = Connection::getInstance($_SESSION['user'], $_SESSION['pass'])->getConn();
+$conn = Connection::getInstance()->getConn();
 $carrera = $_POST["carrera"];
 $plan = $_POST['planEstudios'];
 $table = AsyncPlanCtrl::get_mapa_curricular($plan, $carrera);

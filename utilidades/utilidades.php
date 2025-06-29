@@ -47,7 +47,7 @@ class Utilidades
         ]
     ];
     // Obtener el tipo de usuario y guardarlo en la sesion
-    private static function get_tipo_usuario(string $user): string
+    public static function get_tipo_usuario(string $user): string
     {
         // Obtiene el usuario con expresiones regulares, solo digitos para la boleta del alumno y rfc para docente
         return match (true) {
@@ -59,18 +59,16 @@ class Utilidades
     // Comprobar si el usuario tiene sesion iniciada
     private static function is_user_logged()
     {
-        if (!isset($_SESSION['user']) && !isset($_SESSION['pass'])) {
+        if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
             include 'login.php';
             exit();
-        } else {
-            Connection::getInstance($_SESSION['user'], $_SESSION['pass'])->getConn();
         }
     }
     // Cerrar sesion
     private static function close_loggin()
     {
         session_destroy();
-        header('Location: login.php');
+        header('Location: login');
         exit();
     }
     // Verificar los permisos del usuario para acceder a una pagina

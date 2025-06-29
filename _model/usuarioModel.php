@@ -17,8 +17,8 @@ class Usuario {
     ) 
     { }
 
-    public function iniciar_sesion(){
-
+    public function iniciar_sesion($user, $pass){
+        
     }
     public function cerrar_sesion(){
 
