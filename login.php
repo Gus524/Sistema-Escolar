@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if(isset($_SESSION['user']) && isset($_SESSION['tipo'])) {
+    header('Location: ' . SITE_URL . '/Inicio');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

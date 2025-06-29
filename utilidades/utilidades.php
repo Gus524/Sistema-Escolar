@@ -90,9 +90,9 @@ class Utilidades
         if(isset($_SESSION['lockout_time'])) {
             $lapsed_time = time() - $_SESSION['lockout_time'];
             if ($lapsed_time < LOCKOUT_TIME) {
-                $remainging_time = LOCKOUT_TIME - $lapsed_time;
-                $_SESSION['error_message'] = "Demasiados intentos fallidos. Por favor, inténtelo de nuevo en $remainging_time segundos.";
-                header('Location: login');
+                $remaining_time = LOCKOUT_TIME - $lapsed_time;
+                $_SESSION['error_message'] = "Demasiados intentos fallidos. Por favor, inténtelo de nuevo en $remaining_time segundos.";
+                header('Location: ' . SITE_URL . 'login');
                 exit();
             } else {
                 unset($_SESSION['login_attempts']);
@@ -110,7 +110,7 @@ class Utilidades
             $_SESSION['user'] = $_POST['user'];
             $_SESSION['tipo'] = $userData['tipo'];
             self::save_log_audit('Inicio de sesión exitoso', $_POST['user'], 'Usuario ha iniciado sesión correctamente.');
-            header('Location: ' . DEFAULT_URL);
+            header('Location: ' . SITE_URL . DEFAULT_URL);
             exit();
         } else {
             $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
@@ -123,7 +123,7 @@ class Utilidades
                 $_SESSION['error_message'] = "Usuario o contraseña incorrectos. Intentos restantes: $attemps_left.";
                 self::save_log_audit('Intento de inicio de sesión fallido', $_POST['user'], 'Usuario o contraseña incorrectos.');
             }
-            header('Location: login');
+            header('Location: ' . SITE_URL . 'login');
             exit();
         }
     }
@@ -140,7 +140,7 @@ class Utilidades
         $querystring = $_GET['querystring'] ?? '';
         
         if ($querystring === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        self::handleLogin();
+            self::handleLogin();
         }
 
         self::is_user_logged();
