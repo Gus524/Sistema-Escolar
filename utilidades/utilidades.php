@@ -105,7 +105,7 @@ class Utilidades
 
             if ($userData) {
                 session_regenerate_id(true);
-                $_SESSION['user'] = $userData['usuario'];
+                $_SESSION['user'] = $_POST['user'];
                 $_SESSION['tipo'] = $userData['tipo'];
                 header('Location: ' . DEFAULT_URL);
                 exit();
