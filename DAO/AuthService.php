@@ -34,7 +34,7 @@ class AuthService {
         $stmt->execute([$user]);
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($userData && password_verify($password, $userData['password_hash'])) {
+        if ($userData && password_verify($password, $userData['pass'])) {
             unset($userData['password_hash']);
             return $userData;
         }
