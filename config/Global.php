@@ -8,5 +8,5 @@ set_include_path(
     PATH_SEPARATOR . realpath(__DIR__ . '/..') . '/DAO'
 );
 
-define("SITE_URL", "https://schoolshield.azurewebsites.net");
+define("SITE_URL", "https://schoolshield.azurewebsites.net/");
 define("DEFAULT_URL", "Inicio");
