@@ -94,6 +94,27 @@ class Utilidades
     // Funcion para manejar la navegacion del sistema
     public static function navigation(): object
     {
+        $querystring = $_GET['querystring'] ?? '';
+        
+        if ($querystring === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Si la petición es un POST a /login, la procesamos aquí.
+            require_once ROOT_PATH . 'DAO/AuthService.php';
+
+            $authService = new AuthService();
+            $userData = $authService->attemptLogin($_POST['user'], $_POST['pass']);
+
+            if ($userData) {
+                session_regenerate_id(true);
+                $_SESSION['user'] = $userData['usuario'];
+                $_SESSION['tipo'] = $userData['tipo'];
+                header('Location: ' . DEFAULT_URL);
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Usuario o contraseña incorrectos.";
+                header('Location: login');
+                exit();
+            }
+        }
         self::is_user_logged();
         $tipo = self::get_tipo_usuario($_SESSION['user']);
         self::set_tipo_user($tipo);
