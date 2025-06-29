@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: Inicio'); // La redirección en caso de ÉXITO se mantiene.
         exit();
     } else {
-        // En lugar de redirigir, solo asignamos el mensaje de error a nuestra variable.
         $error_message = "Usuario o contraseña incorrectos.";
     }
 }

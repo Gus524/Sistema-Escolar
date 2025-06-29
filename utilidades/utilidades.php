@@ -60,7 +60,7 @@ class Utilidades
     private static function is_user_logged()
     {
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
-            include_once ROOT_PATH . 'login';
+            include_once ROOT_PATH . 'login.php';
             exit();
         }
     }
@@ -68,7 +68,7 @@ class Utilidades
     private static function close_loggin()
     {
         session_destroy();
-        header('Location: login');
+        header('Location: login.php');
         exit();
     }
     // Verificar los permisos del usuario para acceder a una pagina
