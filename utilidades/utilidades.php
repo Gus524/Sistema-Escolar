@@ -60,7 +60,7 @@ class Utilidades
     private static function is_user_logged()
     {
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
-            include 'login.php';
+            include_once ROOT_PATH . 'login.php';
             exit();
         }
     }
@@ -123,7 +123,7 @@ class Utilidades
         if($page == 'Grupos' && !empty($id)){
             $id_parts = explode('-', $id);
             if(count($id_parts) == 2){
-                include 'detalleGrupoCtrl.php';
+                include_once ROOT_PATH . 'detalleGrupoCtrl.php';
                 return new DetalleGrupoCtrl($id_parts[0], $id_parts[1]);
             } else {
                 self::show_error(400, "Informacion no valida");

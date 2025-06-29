@@ -1,6 +1,6 @@
 <?php
-require_once 'DAO/connection.php';
-require_once 'DAO/AuthService.php';
+require_once ROOT_PATH . 'DAO/connection.php';
+require_once ROOT_PATH . 'DAO/AuthService.php';
 
 session_start();
 if(isset($_SESSION['user']) && isset($_SESSION['tipo'])) {

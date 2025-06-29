@@ -2,7 +2,7 @@
 session_start();
 
 include_once 'config/Global.php';
-include_once 'utilidades/utilidades.php';
+include_once ROOT_PATH . 'utilidades/utilidades.php';
 
 //Se llama la funcion de navegacion y se obtiene el controllador
 $ctrl = Utilidades::navigation();
