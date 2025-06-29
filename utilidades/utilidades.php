@@ -68,7 +68,7 @@ class Utilidades
     private static function close_loggin()
     {
         session_destroy();
-        header('Location: login');
+        header('Location: login.php');
         exit();
     }
     // Verificar los permisos del usuario para acceder a una pagina

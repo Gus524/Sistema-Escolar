@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } else {
         $_SESSION['error_message'] = "Usuario o contraseña incorrectos.";
-        header('Location: login'); 
+        header('Location: login.php'); 
         exit();
     }
 }
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="left">
             <img src="src/img/logo_p.png" alt="Logo">
         </section>
-        <form id="formulario" method="post" action="login" class="right">
+        <form id="formulario" method="post" action="login.php" class="right">
             <h2>Inicio de sesión</h2>
             <label for="user">Usuario: </label>
             <input type="text" id="user" name="user" placeholder="Usuario" required>
