@@ -3,6 +3,7 @@ body{
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
+    background-color: #f8f9fa;
 }
 
 main {
@@ -94,7 +95,7 @@ main {
 
     .left img {
         max-height: 40vh; /* Reduce la altura máxima de la imagen en móviles */
-        margin-bottom: 1rem; /* Reduce el margen inferior */
+        margin-bottom: 2rem; /* Reduce el margen inferior */
     }
 
     .right {
@@ -134,5 +135,7 @@ main {
     .btn-aceptar {
         margin-top: 1.5rem; /* Espacio superior para el botón */
         padding: 1rem; /* Un poco más de padding para facilitar el toque */
+        background-color: #212529;
+        color: white; /* Asegura que el texto del botón sea visible */
     }
 }
