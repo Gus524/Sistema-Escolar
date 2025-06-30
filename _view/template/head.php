@@ -13,4 +13,4 @@
   <link href="<?= SITE_URL ?>utils/ionicons_2.0.1/css/ionicons.css" rel="stylesheet">
   <link href="<?= SITE_URL ?>src/css/styles.css" rel="stylesheet">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 p-sm-0">
