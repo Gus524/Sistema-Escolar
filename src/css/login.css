@@ -82,7 +82,6 @@ main {
     main {
         flex-direction: column; /* Apila las secciones verticalmente */
         height: auto; /* Permite que el contenido determine la altura */
-        min-height: 100vh; /* Asegura que ocupe al menos el 100% de la altura de la vista */
     }
 
     .left, .right {
@@ -94,13 +93,14 @@ main {
     }
 
     .left img {
-        max-height: 30vh; /* Reduce la altura máxima de la imagen en móviles */
+        max-height: 40vh; /* Reduce la altura máxima de la imagen en móviles */
         margin-bottom: 1rem; /* Reduce el margen inferior */
     }
 
     .right {
         justify-content: flex-start; /* Alinea los elementos de la forma al inicio */
         padding: 10px; /* Padding para la sección del formulario */
+        height: 100%;
     }
 
     .right h2 {
