@@ -21,6 +21,6 @@
 </form>
 <hr>
 <br>
-<section id="mapaCurricular" class="d-flex justify-content-center text-center rounded-4">
+<section id="mapaCurricular" class="table-responsive d-flex justify-content-center text-center rounded-4">
 
 </section>
