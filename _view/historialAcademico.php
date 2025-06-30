@@ -52,8 +52,8 @@
 ?>
     <article class="mb-3 text-center overflow-auto mh-50">
         <h5 class="display-6"><?= $semestre ?></h5>
-        <article class="table-responsive rounded-4">
-            <table class="table table-md table-striped table-hover">
+        <article class="table-responsive rounded-4 p-sm-0 m-sm-0">
+            <table class="table table-md table-striped table-hover p-0 m-0">
                 <thead class="table-dark">
                     <th>Clave</th>
                     <th>Materia</th>

@@ -1,8 +1,7 @@
 </main>
 <footer class="footer mt-auto py-3 bg-dark" data-bs-theme="dark">
-  <section class="d-flex justify-content-between px-5">
-    <span class="text-muted">Sistema Escolar: 2024-2025</span>
-    <span class="text-muted">Desarrollado por: Eric Gustavo Gonzalez Garcia</span>
+  <section class="d-flex justify-content-between px-5 row">
+    <span class="text-muted col-sm-12">SchoolShield: 2024-2025</span>
   </section>
 </footer>
 <!-- Bootstrap JS -->
