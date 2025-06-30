@@ -77,3 +77,64 @@ main {
     margin-top: -2em;
     font-size: .5em;
 }
+
+@media (max-width: 768px) { /* Este breakpoint es común para tablets pequeñas y móviles */
+    main {
+        flex-direction: column; /* Apila las secciones verticalmente */
+        height: auto; /* Permite que el contenido determine la altura */
+        min-height: 100vh; /* Asegura que ocupe al menos el 100% de la altura de la vista */
+    }
+
+    .left, .right {
+        width: 100%; /* Ambas secciones ocupan el ancho completo */
+        padding: 20px; /* Añade padding para evitar que el contenido se pegue a los bordes */
+    }
+
+    .left {
+        min-height: 200px; /* Altura mínima para la sección izquierda en móviles */
+        margin-bottom: 20px; /* Espacio entre las secciones */
+    }
+
+    .left img {
+        max-height: 40vh; /* Reduce la altura máxima de la imagen en móviles */
+        margin-bottom: 2rem; /* Reduce el margen inferior */
+    }
+
+    .right {
+        justify-content: flex-start; /* Alinea los elementos de la forma al inicio */
+        padding: 20px; /* Padding para la sección del formulario */
+    }
+
+    .right h2 {
+        text-align: center; /* Centra el título en móviles */
+        margin-left: 0; /* Elimina el margen izquierdo para centrar */
+        margin-bottom: 2rem; /* Reduce el margen inferior del título */
+        font-size: 1.8em; /* Ajusta el tamaño del título */
+    }
+
+    .right label,
+    .right input,
+    .btn-aceptar,
+    .error {
+        margin-left: auto; /* Centra los elementos */
+        margin-right: auto;
+        max-width: 90%; /* Los inputs y botones ocupan un mayor porcentaje */
+        width: 100%; /* Asegura que ocupen todo el espacio disponible dentro del max-width */
+    }
+
+    .right input {
+        margin-bottom: 1rem; /* Reduce el espacio entre inputs */
+        margin-top: 0.5rem;
+    }
+
+    .error {
+        margin-top: 0.5em; /* Ajusta el margen superior del error */
+        text-align: center; /* Centra el mensaje de error */
+        font-size: 0.7em; /* Aumenta un poco el tamaño de la letra del error para que sea legible */
+    }
+
+    .btn-aceptar {
+        margin-top: 1.5rem; /* Espacio superior para el botón */
+        padding: 1rem; /* Un poco más de padding para facilitar el toque */
+    }
+}
