@@ -87,12 +87,10 @@ main {
 
     .left, .right {
         width: 100%; /* Ambas secciones ocupan el ancho completo */
-        padding: 20px; /* Añade padding para evitar que el contenido se pegue a los bordes */
     }
 
     .left {
         min-height: 200px; /* Altura mínima para la sección izquierda en móviles */
-        margin-bottom: 20px; /* Espacio entre las secciones */
     }
 
     .left img {
