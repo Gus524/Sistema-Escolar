@@ -1,32 +1,37 @@
 <?php
 include_once 'connection.php';
 function getRealClientIp() {
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // Puede contener varias IPs separadas por coma: cliente, proxy1, proxy2...
-        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        foreach ($ipList as $ip) {
-            $ip = trim($ip);
-            // Validar IP válida y pública (no localhost ni privada)
+    $candidates = [
+        'HTTP_X_CLIENT_IP',
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_CLIENT_IP',
+        'HTTP_X_FORWARDED',
+        'HTTP_FORWARDED_FOR',
+        'HTTP_FORWARDED',
+        'REMOTE_ADDR',
+    ];
+
+    foreach ($candidates as $key) {
+        if (!empty($_SERVER[$key])) {
+            // Si contiene IP:PUERTO, elimina el puerto
+            $ip = explode(':', $_SERVER[$key])[0];
+            // Validar que sea una IP pública
             if (filter_var($ip, FILTER_VALIDATE_IP) && !isPrivateIp($ip)) {
                 return $ip;
             }
         }
     }
 
-    // Fallback a REMOTE_ADDR
-    if (!empty($_SERVER['REMOTE_ADDR']) && !isPrivateIp($_SERVER['REMOTE_ADDR'])) {
-        return $_SERVER['REMOTE_ADDR'];
-    }
-
     return 'UNKNOWN';
 }
 
 function isPrivateIp($ip) {
-    return 
-        preg_match('/^127\./', $ip) ||       // localhost
-        preg_match('/^10\./', $ip) ||        // clase A privada
-        preg_match('/^172\.(1[6-9]|2[0-9]|3[0-1])\./', $ip) || // clase B privada
-        preg_match('/^192\.168\./', $ip);    // clase C privada
+    return
+        preg_match('/^127\./', $ip) ||
+        preg_match('/^10\./', $ip) ||
+        preg_match('/^172\.(1[6-9]|2[0-9]|3[0-1])\./', $ip) ||
+        preg_match('/^192\.168\./', $ip) ||
+        preg_match('/^169\.254\./', $ip); // Link-local (como la que Azure usa internamente)
 }
 class AuditService
 {
