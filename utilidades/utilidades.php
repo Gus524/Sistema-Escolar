@@ -218,10 +218,30 @@ class Utilidades
         }
     }
     // Funcion para mostrar error con el codigo HTTP correspondiente
-    private static function show_error($code, $message){
-        http_response_code($code);
-        echo "<h1>$code</h1>";
-        echo "<h3>$message</h3>";
-        die();
-    }
+private static function show_error($code, $message){
+    http_response_code($code);
+    echo "
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            font-family: sans-serif;
+        }
+        h1 {
+            font-size: 5em; 
+            color: #E74C3C;
+        }
+        h3 {
+            font-size: 2em; 
+            color: #34495E;
+        }
+    </style>
+    <h1>$code</h1>
+    <h3>$message</h3>";
+    die();
+}
 }
