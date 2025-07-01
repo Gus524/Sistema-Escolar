@@ -86,8 +86,9 @@ class Utilidades
         return self::$permisos[$tipo][$page];
     }
 
-    private static function handleLogin() {
-        if(isset($_SESSION['lockout_time'])) {
+    private static function handleLogin()
+    {
+        if (isset($_SESSION['lockout_time'])) {
             $lapsed_time = time() - $_SESSION['lockout_time'];
             if ($lapsed_time < LOCKOUT_TIME) {
                 $remaining_time = LOCKOUT_TIME - $lapsed_time;
@@ -103,7 +104,7 @@ class Utilidades
         require_once ROOT_PATH . 'DAO/AuthService.php';
         $authService = new AuthService();
         $userData = $authService->attemptLogin($_POST['user'], $_POST['pass']);
-        if($userData) {
+        if ($userData) {
             unset($_SESSION['login_attempts']);
             unset($_SESSION['lockout_time']);
             session_regenerate_id(true);
@@ -138,7 +139,7 @@ class Utilidades
     public static function navigation(): object
     {
         $querystring = $_GET['querystring'] ?? '';
-        
+
         if ($querystring === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             self::handleLogin();
         }
@@ -158,15 +159,15 @@ class Utilidades
         $page = isset($petitions[0]) ? $petitions[0] : "";
         // Obtiene el id solicitado
         $id = isset($petitions[1]) ? $petitions[1] : "";
-        if($page == "Cerrar") {
+        if ($page == "Cerrar" || $id == "Cerrar") {
             self::close_loggin();
         }
-        if(strtolower($page) == "login") {
+        if (strtolower($page) == "login") {
             header('Location: ' . SITE_URL . DEFAULT_URL);
             exit();
         }
         // Si el usuario no tiene permiso para acceder a la pagina manda error
-        if(!self::has_permissions($tipo, $page) && $page != 'login' && $page != 'Cerrar' && $page != 'js') {
+        if (!self::has_permissions($tipo, $page) && $page != 'login' && $page != 'Cerrar' && $page != 'js') {
             $details = "Intento de acceso a la pagina " . $page . " por el usuario {$_SESSION['user']} con tipo $tipo";
             self::save_log_audit('Acceso denegado', $_SESSION['user'], $details);
             self::show_error(403, "Acceso denegado");
@@ -174,15 +175,17 @@ class Utilidades
         return self::return_controller($page, $id, $tipo);
     }
 
-    private static function save_log_audit($accion, $user_id, $details): void {
+    private static function save_log_audit($accion, $user_id, $details): void
+    {
         $auditService = new AuditService();
         $auditService->logAction($accion, $user_id, $details);
     }
-    private static function return_controller($page, $id, $tipo): object{
+    private static function return_controller($page, $id, $tipo): object
+    {
         // Manejo para pagina de detalle grupo
-        if($page == 'Grupos' && !empty($id)){
+        if ($page == 'Grupos' && !empty($id)) {
             $id_parts = explode('-', $id);
-            if(count($id_parts) == 2){
+            if (count($id_parts) == 2) {
                 include_once ROOT_PATH . '_controller/detalleGrupoCtrl.php';
                 return new DetalleGrupoCtrl($id_parts[0], $id_parts[1]);
             } else {
@@ -193,14 +196,14 @@ class Utilidades
         $controller_info = self::$permisos[$tipo][$page];
         $controller_file = $controller_info['file'];
         $controller_name = $controller_info['controller'];
-        
+
         // La ruta completa y segura al archivo del controlador.
         $controller_path = ROOT_PATH . '_controller/' . $controller_file;
 
         if (!file_exists($controller_path)) {
             self::show_error(500, "Error Interno: El archivo del controlador no fue encontrado.");
         }
-        
+
         // Usamos require_once para que la aplicación falle si el controlador no existe.
         require_once $controller_path;
 
@@ -218,9 +221,10 @@ class Utilidades
         }
     }
     // Funcion para mostrar error con el codigo HTTP correspondiente
-private static function show_error($code, $message){
-    http_response_code($code);
-    echo "
+    private static function show_error($code, $message)
+    {
+        http_response_code($code);
+        echo "
     <style>
         body {
             display: flex;
@@ -242,6 +246,6 @@ private static function show_error($code, $message){
     </style>
     <h1>$code</h1>
     <h3>$message</h3>";
-    die();
-}
+        die();
+    }
 }
