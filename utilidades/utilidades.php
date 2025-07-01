@@ -61,7 +61,7 @@ class Utilidades
     private static function is_user_logged()
     {
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
-            require_once ROOT_PATH . 'login.php';
+            header('Location: ' . SITE_URL . 'login');
             exit();
         }
     }
