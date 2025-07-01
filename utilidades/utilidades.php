@@ -166,7 +166,7 @@ class Utilidades
             exit();
         }
         // Si el usuario no tiene permiso para acceder a la pagina manda error
-        if(!self::has_permissions($tipo, $page)){
+        if(!self::has_permissions($tipo, $page) && $page != 'login' && $page != 'Cerrar' && $page != 'js') {
             $details = "Intento de acceso a la pagina " . $page . " por el usuario {$_SESSION['user']} con tipo $tipo";
             self::save_log_audit('Acceso denegado', $_SESSION['user'], $details);
             self::show_error(403, "Acceso denegado");
