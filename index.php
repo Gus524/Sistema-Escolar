@@ -2,7 +2,9 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+print_r(getallheaders());
+echo $_SERVER['HTTP_X_FORWARDED_FOR'];
+echo $_SERVER['REMOTE_ADDR'];
 define('ROOT_PATH', __DIR__ . '/');
 
 include_once ROOT_PATH . 'config/Global.php';

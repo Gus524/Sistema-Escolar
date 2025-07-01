@@ -1,25 +1,32 @@
 <?php
 include_once 'connection.php';
 function getRealClientIp() {
-    $ip = '';
-
-    if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] !== '') {
-        $ip_addresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        $ip = trim($ip_addresses[0]);
-    }
-    else if (isset($_SERVER['REMOTE_ADDR'])) {
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    
-    else if (isset($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        // Puede contener varias IPs separadas por coma: cliente, proxy1, proxy2...
+        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        foreach ($ipList as $ip) {
+            $ip = trim($ip);
+            // Validar IP válida y pública (no localhost ni privada)
+            if (filter_var($ip, FILTER_VALIDATE_IP) && !isPrivateIp($ip)) {
+                return $ip;
+            }
+        }
     }
 
-    if (filter_var($ip, FILTER_VALIDATE_IP)) {
-        return $ip;
+    // Fallback a REMOTE_ADDR
+    if (!empty($_SERVER['REMOTE_ADDR']) && !isPrivateIp($_SERVER['REMOTE_ADDR'])) {
+        return $_SERVER['REMOTE_ADDR'];
     }
 
     return 'UNKNOWN';
+}
+
+function isPrivateIp($ip) {
+    return 
+        preg_match('/^127\./', $ip) ||       // localhost
+        preg_match('/^10\./', $ip) ||        // clase A privada
+        preg_match('/^172\.(1[6-9]|2[0-9]|3[0-1])\./', $ip) || // clase B privada
+        preg_match('/^192\.168\./', $ip);    // clase C privada
 }
 class AuditService
 {
