@@ -60,6 +60,11 @@ class Utilidades
     // Comprobar si el usuario tiene sesion iniciada
     private static function is_user_logged()
     {
+        $querystring = $_GET['querystring'] ?? '';
+        if ($querystring === 'login') {
+            return;
+        }
+
         if (!isset($_SESSION['user']) && !isset($_SESSION['tipo'])) {
             header('Location: ' . SITE_URL . 'login');
             exit();
